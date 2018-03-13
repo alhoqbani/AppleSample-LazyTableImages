@@ -8,20 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		774CA5FB2057C99E00C5D919 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774CA5FA2057C99E00C5D919 /* AppDelegate.swift */; };
-		774CA5FD2057C99E00C5D919 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774CA5FC2057C99E00C5D919 /* ViewController.swift */; };
 		774CA6002057C99E00C5D919 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 774CA5FE2057C99E00C5D919 /* Main.storyboard */; };
 		774CA6022057C99E00C5D919 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 774CA6012057C99E00C5D919 /* Assets.xcassets */; };
 		774CA6052057C99E00C5D919 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 774CA6032057C99E00C5D919 /* LaunchScreen.storyboard */; };
+		774CA60E2057CA8700C5D919 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774CA60D2057CA8700C5D919 /* RootViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		774CA5F72057C99E00C5D919 /* AppleSample-LazyTableImages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AppleSample-LazyTableImages.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		774CA5FA2057C99E00C5D919 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		774CA5FC2057C99E00C5D919 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		774CA5FF2057C99E00C5D919 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		774CA6012057C99E00C5D919 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		774CA6042057C99E00C5D919 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		774CA6062057C99F00C5D919 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		774CA60C2057C9AC00C5D919 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		774CA60D2057CA8700C5D919 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +39,7 @@
 		774CA5EE2057C99E00C5D919 = {
 			isa = PBXGroup;
 			children = (
+				774CA60C2057C9AC00C5D919 /* README.md */,
 				774CA5F92057C99E00C5D919 /* AppleSample-LazyTableImages */,
 				774CA5F82057C99E00C5D919 /* Products */,
 			);
@@ -55,11 +57,11 @@
 			isa = PBXGroup;
 			children = (
 				774CA5FA2057C99E00C5D919 /* AppDelegate.swift */,
-				774CA5FC2057C99E00C5D919 /* ViewController.swift */,
 				774CA5FE2057C99E00C5D919 /* Main.storyboard */,
 				774CA6012057C99E00C5D919 /* Assets.xcassets */,
 				774CA6032057C99E00C5D919 /* LaunchScreen.storyboard */,
 				774CA6062057C99F00C5D919 /* Info.plist */,
+				774CA60D2057CA8700C5D919 /* RootViewController.swift */,
 			);
 			path = "AppleSample-LazyTableImages";
 			sourceTree = "<group>";
@@ -136,7 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				774CA5FD2057C99E00C5D919 /* ViewController.swift in Sources */,
+				774CA60E2057CA8700C5D919 /* RootViewController.swift in Sources */,
 				774CA5FB2057C99E00C5D919 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
