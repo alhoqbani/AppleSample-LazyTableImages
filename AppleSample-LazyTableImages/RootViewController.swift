@@ -24,6 +24,11 @@ class RootViewController: UITableViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        terminateAllDownloads()
+    }
+    
+    deinit {
+        terminateAllDownloads()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -105,6 +110,15 @@ class RootViewController: UITableViewController {
                 self.startIconDownload(forAppRecord: appRecord, at: indexPath)
             }
         }
+    }
+
+    // -------------------------------------------------------------------------------
+    //    terminateAllDownloads
+    //  Will cancel all pending downloads when the controller is about to leave.
+    // -------------------------------------------------------------------------------
+    func terminateAllDownloads() {
+        imageDownloadsInProgress.forEach { $0.value.cancelDownload() }
+        imageDownloadsInProgress.removeAll()
     }
 
 }
