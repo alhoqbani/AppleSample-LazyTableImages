@@ -29,7 +29,7 @@ class RootViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return entries.count == 0 ? 1 : entries.count
     }
-    
+
     //: MARK: TableViewDataSource
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
@@ -52,7 +52,10 @@ class RootViewController: UITableViewController {
                 // Only load cached images; defer new downloads until scrolling ends
                 if (appRecord.appIcon == nil) {
 
-                    startIconDownload(forAppRecord: appRecord, at: indexPath)
+                    if !self.tableView.isDragging && !self.tableView.isDecelerating {
+                        startIconDownload(forAppRecord: appRecord, at: indexPath)
+                    }
+                    
                     // if a download is deferred or in progress, return a placeholder image
                     cell.imageView?.image = #imageLiteral(resourceName:"Placeholder")
                 } else {
@@ -63,29 +66,68 @@ class RootViewController: UITableViewController {
 
         return cell
     }
-    
+
     //: MARK: Table cell image support
     func startIconDownload(forAppRecord appRecord: AppRecord, at indexPath: IndexPath) {
-        
+
         // There is a download in progress for the given indexPath
         guard imageDownloadsInProgress[indexPath] == nil else {
             return
         }
-        
+
         let iconDownloader = IconDownloader(appRecord: appRecord)
         iconDownloader.completionHandler = { [weak self] in
             let cell = self?.tableView.cellForRow(at: indexPath)
-            
+
             // Display the newly loaded image
             cell?.imageView?.image = appRecord.appIcon
-            
+
             // Remove the IconDownloader from the in progress list.
             // This will result in it being deallocated.
             self?.imageDownloadsInProgress.removeValue(forKey: indexPath)
         }
-        
+
         imageDownloadsInProgress[indexPath] = iconDownloader
         iconDownloader.startDownload()
     }
 
+    // -------------------------------------------------------------------------------
+    //    loadImagesForOnscreenRows
+    //  This method is used in case the user scrolled into a set of cells that don't
+    //  have their app icons yet.
+    //  This method will be called by UIScrollViewDelegate
+    // -------------------------------------------------------------------------------
+    func loadImagesForOnscreenRows() {
+
+        if entries.count > 0, let visiblePaths = tableView.indexPathsForVisibleRows {
+            for indexPath in visiblePaths {
+                let appRecord = entries[indexPath.row]
+                self.startIconDownload(forAppRecord: appRecord, at: indexPath)
+            }
+        }
+    }
+
+}
+
+
+//: MARK: UIScrollViewDelegate
+extension RootViewController {
+
+    // -------------------------------------------------------------------------------
+    //    scrollViewDidEndDragging:willDecelerate:
+    //  Load images for all onscreen rows when scrolling is finished.
+    // -------------------------------------------------------------------------------
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            self.loadImagesForOnscreenRows()
+        }
+    }
+
+    // -------------------------------------------------------------------------------
+    //    scrollViewDidEndDecelerating:scrollView
+    //  When scrolling stops, proceed to load the images that are on screen.
+    // -------------------------------------------------------------------------------
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        self.loadImagesForOnscreenRows()
+    }
 }
