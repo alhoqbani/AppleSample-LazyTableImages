@@ -9,44 +9,57 @@
 import UIKit
 
 class RootViewController: UITableViewController {
-    
+
     var entries = [AppRecord]()
-    
+
     enum cellsIdentifier: String {
         case LazyTableCell
         case PlaceholderCell
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return entries.count == 0 ? 1 : entries.count
     }
     
+    //: MARK: TableViewDataSource
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         var cell: UITableViewCell
-        
+
+        // add a placeholder cell while waiting on table data
         if entries.count == 0 && indexPath.row == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: cellsIdentifier.PlaceholderCell.rawValue, for: indexPath)
+
         } else {
             cell = tableView.dequeueReusableCell(withIdentifier: cellsIdentifier.LazyTableCell.rawValue, for: indexPath)
-            
+
+            // Leave cells empty if there's no data yet
             if entries.count > 0 {
+                // Set up the cell representing the app
                 let appRecord = entries[indexPath.row]
                 cell.textLabel?.text = appRecord.appName
                 cell.detailTextLabel?.text = appRecord.artist
+
+                // Only load cached images; defer new downloads until scrolling ends
+                if (appRecord.appIcon == nil) {
+
+                    // if a download is deferred or in progress, return a placeholder image
+                    cell.imageView?.image = #imageLiteral(resourceName:"Placeholder")
+                } else {
+                    cell.imageView?.image = appRecord.appIcon
+                }
             }
-            
         }
-        
+
         return cell
     }
-    
+
 }
