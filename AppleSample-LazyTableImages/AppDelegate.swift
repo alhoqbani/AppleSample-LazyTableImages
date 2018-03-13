@@ -37,11 +37,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 let feed = try JSONDecoder().decode(AppsFeed.self, from: data)
                 let records = feed.records
-                
+
                 let appRecords: [AppRecord] = records.map {
-                    return AppRecord(appName: $0.appName, imageURLString: $0.imageURLString)
+                    return AppRecord(appName: $0.appName, artist: $0.artist, imageURLString: $0.imageURLString)
                 }
-                
+
                 print("AppRecords Count: \(appRecords.count)")
                 appRecords.forEach { print($0.appName) }
                 

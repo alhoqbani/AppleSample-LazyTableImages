@@ -13,10 +13,12 @@ struct AppRecord {
     
     var appName: String
     var imageURLString: String
+    var artist: String
     var appIcon: UIImage?
     
-    init(appName: String, imageURLString: String) {
+    init(appName: String, artist: String, imageURLString: String) {
         self.appName = appName
+        self.artist = artist
         self.imageURLString = imageURLString
     }
 }
@@ -33,6 +35,7 @@ struct FeedResponse: Decodable {
     
     struct Entry: Decodable {
         var nameWrapper: Name
+        var artistWrapper: Artist
         var Images: [Image]
 
         struct Image: Decodable {
@@ -41,9 +44,14 @@ struct FeedResponse: Decodable {
 
         private enum CodingKeys: String, CodingKey {
             case nameWrapper = "im:name"
+            case artistWrapper = "im:artist"
             case Images = "im:image"
         }
-        
+
+        struct Artist: Decodable {
+            var label: String
+        }
+
         struct Name: Decodable {
             var label: String
         }
@@ -58,6 +66,7 @@ struct AppsFeed {
     struct Record: Decodable {
         var appName: String
         var imageURLString: String
+        var artist: String
     }
 }
 
@@ -71,8 +80,9 @@ extension AppsFeed: Decodable {
             
             let name = entry.nameWrapper.label
             let imageUrl = entry.Images.first?.label
+            let artist = entry.artistWrapper.label
             
-            let record = Record(appName: name, imageURLString: imageUrl ?? "")
+            let record = Record(appName: name, imageURLString: imageUrl ?? "", artist: artist)
             records.append(record)
         }
         
