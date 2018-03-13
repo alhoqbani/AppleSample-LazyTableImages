@@ -16,6 +16,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        // Fetch the feed
+        let topPaidAppsFeed = URL(string: "http://phobos.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=100/json")!
+
+        let sessionTask = URLSession.shared.dataTask(with: topPaidAppsFeed) { (data: Data?, response: URLResponse?, error: Error?) -> Void in
+
+            guard error == nil else {
+                print(error!)
+                abort()
+            }
+
+            guard let data = data else {
+                print("data is nil")
+                return
+            }
+
+
+            do {
+
+                let feed = try JSONDecoder().decode(AppsFeed.self, from: data)
+                let records = feed.records
+                
+                let appRecords: [AppRecord] = records.map {
+                    return AppRecord(appName: $0.appName, imageURLString: $0.imageURLString)
+                }
+                
+                print("AppRecords Count: \(appRecords.count)")
+                appRecords.forEach { print($0.appName) }
+                
+            } catch {
+                print(error)
+            }
+        }
+
+
+        sessionTask.resume()
+
         return true
     }
 
