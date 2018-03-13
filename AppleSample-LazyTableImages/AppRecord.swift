@@ -9,7 +9,7 @@
 import UIKit
 
 //: MARK:  Main AppRecord Model
-struct AppRecord {
+class AppRecord {
     
     var appName: String
     var imageURLString: String
