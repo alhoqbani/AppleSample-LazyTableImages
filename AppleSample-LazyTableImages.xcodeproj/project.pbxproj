@@ -13,6 +13,7 @@
 		774CA6052057C99E00C5D919 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 774CA6032057C99E00C5D919 /* LaunchScreen.storyboard */; };
 		774CA60E2057CA8700C5D919 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774CA60D2057CA8700C5D919 /* RootViewController.swift */; };
 		774CA6102057CCA400C5D919 /* AppRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774CA60F2057CCA400C5D919 /* AppRecord.swift */; };
+		774CA6122057F80800C5D919 /* IconDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774CA6112057F80800C5D919 /* IconDownloader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		774CA60C2057C9AC00C5D919 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		774CA60D2057CA8700C5D919 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		774CA60F2057CCA400C5D919 /* AppRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRecord.swift; sourceTree = "<group>"; };
+		774CA6112057F80800C5D919 /* IconDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconDownloader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				774CA6062057C99F00C5D919 /* Info.plist */,
 				774CA60D2057CA8700C5D919 /* RootViewController.swift */,
 				774CA60F2057CCA400C5D919 /* AppRecord.swift */,
+				774CA6112057F80800C5D919 /* IconDownloader.swift */,
 			);
 			path = "AppleSample-LazyTableImages";
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 				774CA60E2057CA8700C5D919 /* RootViewController.swift in Sources */,
 				774CA5FB2057C99E00C5D919 /* AppDelegate.swift in Sources */,
 				774CA6102057CCA400C5D919 /* AppRecord.swift in Sources */,
+				774CA6122057F80800C5D919 /* IconDownloader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

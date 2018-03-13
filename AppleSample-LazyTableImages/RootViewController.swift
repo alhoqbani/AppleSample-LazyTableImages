@@ -11,6 +11,7 @@ import UIKit
 class RootViewController: UITableViewController {
 
     var entries = [AppRecord]()
+    var imageDownloadsInProgress = [IndexPath: IconDownloader]()
 
     enum cellsIdentifier: String {
         case LazyTableCell
@@ -51,6 +52,7 @@ class RootViewController: UITableViewController {
                 // Only load cached images; defer new downloads until scrolling ends
                 if (appRecord.appIcon == nil) {
 
+                    startIconDownload(forAppRecord: appRecord, at: indexPath)
                     // if a download is deferred or in progress, return a placeholder image
                     cell.imageView?.image = #imageLiteral(resourceName:"Placeholder")
                 } else {
@@ -60,6 +62,30 @@ class RootViewController: UITableViewController {
         }
 
         return cell
+    }
+    
+    //: MARK: Table cell image support
+    func startIconDownload(forAppRecord appRecord: AppRecord, at indexPath: IndexPath) {
+        
+        // There is a download in progress for the given indexPath
+        guard imageDownloadsInProgress[indexPath] == nil else {
+            return
+        }
+        
+        let iconDownloader = IconDownloader(appRecord: appRecord)
+        iconDownloader.completionHandler = { [weak self] in
+            let cell = self?.tableView.cellForRow(at: indexPath)
+            
+            // Display the newly loaded image
+            cell?.imageView?.image = appRecord.appIcon
+            
+            // Remove the IconDownloader from the in progress list.
+            // This will result in it being deallocated.
+            self?.imageDownloadsInProgress.removeValue(forKey: indexPath)
+        }
+        
+        imageDownloadsInProgress[indexPath] = iconDownloader
+        iconDownloader.startDownload()
     }
 
 }
