@@ -42,9 +42,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return AppRecord(appName: $0.appName, artist: $0.artist, imageURLString: $0.imageURLString)
                 }
 
-                print("AppRecords Count: \(appRecords.count)")
-                appRecords.forEach { print($0.appName) }
-                
+                DispatchQueue.main.async {
+                    let rootViewController = (self.window?.rootViewController as? UINavigationController)?.topViewController as? RootViewController
+                    rootViewController?.entries = appRecords
+                    rootViewController?.tableView.reloadData()
+                }
+
             } catch {
                 print(error)
             }
